@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\SirkulasiController;
+use App\Http\Controllers\Soap\LibrarySoapController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -19,3 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/sirkulasi/pinjam', [SirkulasiController::class, 'pinjamStore'])->name('sirkulasi.pinjam');
     Route::patch('/sirkulasi/kembali/{id}', [SirkulasiController::class, 'kembalikanStore'])->name('sirkulasi.kembali');
 });
+
+// Layanan Legacy SOAP Bebas Pustaka Yudisium (Minggu 9)
+Route::get('/soap/sipus.wsdl', [LibrarySoapController::class, 'wsdl']);
+Route::post('/soap/sipus', [LibrarySoapController::class, 'handle']);
